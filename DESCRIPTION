@@ -1,14 +1,14 @@
 Package: IEOproject
 Type: Package
 Title: IEO Project Template
-Version: 1.0.0
+Version: 1.2.0
 Author: Robert Castelo
 Maintainer: Robert Castelo <robert.castelo@upf.edu>
 Description: This is the IEO project template.
 License: Artistic-2.0
-Depends: R (>= 3.5.0), SummarizedExperiment
+Depends: R (>= 4.0.0), SummarizedExperiment
 Imports: methods, S4Vectors
-Suggests: BiocStyle, knitr, markdown, usethis, kableExtra,
+Suggests: BiocStyle, knitr, rmarkdown, usethis, kableExtra,
           edgeR, geneplotter, sva, KernSmooth
 VignetteBuilder: knitr
 Encoding: UTF-8
