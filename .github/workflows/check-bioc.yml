@@ -47,8 +47,8 @@ jobs:
     steps:
       - id: findinfo
         run: |
-          ## Assume Bioconductor RELEASE 3.12
-          biocversion="RELEASE_3_12"
+          ## Assume Bioconductor RELEASE 3.14
+          biocversion="RELEASE_3_14"
           ## Define the image name and print the information
           imagename="bioconductor/bioconductor_docker:${biocversion}"
           echo $imagename
