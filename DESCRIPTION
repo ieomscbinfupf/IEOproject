@@ -1,7 +1,7 @@
 Package: IEOproject
 Type: Package
 Title: IEO Project Template
-Version: 1.2.0
+Version: 1.2.1
 Author: Robert Castelo
 Maintainer: Robert Castelo <robert.castelo@upf.edu>
 Description: This is the IEO project template.

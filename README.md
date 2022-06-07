@@ -1,4 +1,4 @@
-[![R-CMD-check-bioc](https://github.com/ieomscbinfupf/IEOproject/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/ieomscbinfupf/IEOproject/actions?query=workflow%3AR-CMD-check-bioc)
+[![R-CMD-check-bioc](../../actions/workflows/R-CMD-check-bioc/badge.svg)](../../actions?query=workflow%3AR-CMD-check-bioc)
 
 
 # Project Template - IEO 2022
