@@ -112,7 +112,6 @@ jobs:
       - name: Set locale to en_US.UTF-8
         run: |
           sudo locale-gen en_US.UTF-8
-          sudo localectl set-local LANG="en_US.UTF-8"
           export LANG="en_US.UTF-8"
         shell: bash {0}
 
