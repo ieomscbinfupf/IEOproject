@@ -151,7 +151,6 @@ into the output of the report.
 -->
 
 ```{r, message=FALSE}
-library(DESeq2)
 library(SummarizedExperiment)
 
 se <- readRDS(file.path(system.file("extdata",
