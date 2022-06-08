@@ -189,6 +189,7 @@ jobs:
         env:
           _R_CHECK_CRAN_INCOMING_: false
         run: |
+          Sys.setlocale(category='LC_ALL', 'en_US.UTF-8')
           Sys.getlocale()
           rcmdcheck::rcmdcheck(
               args = c("--no-build-vignettes", "--no-manual", "--timings"),
