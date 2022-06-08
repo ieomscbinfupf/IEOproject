@@ -109,9 +109,9 @@ jobs:
           git --version
         shell: bash {0}
       
-      - name: Set locale
+      - name: Set locale to en_US.UTF-8
         run: |
-          sudo apt-get install tzdata locales -y && sudo locale-gen en_US.UTF-8
+          sudo locale-gen en_US.UTF-8
           sudo localectl set-local LANG="en_US.UTF-8"
           export LANG="en_US.UTF-8"
         shell: bash {0}
