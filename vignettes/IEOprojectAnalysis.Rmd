@@ -272,7 +272,8 @@ tmpdf <- data.frame("Identifer"=colnames(se),
                     Treatment=se$treatment,
                     Replicate=se$description,
                     check.names=FALSE)
-kable(tmpdf, caption="Phenotypic variables.")
+ktab <- kable(tmpdf, caption="Phenotypic variables.")
+kable_styling(ktab, position="center")
 ```
 
 This table reflects the comments in variable `data_processing.2`, which
@@ -594,9 +595,12 @@ fpathCSV <- proj_path(file.path("inst", "doc", fnameCSV))
 write.csv(DEgenesTab, fpathCSV, row.names=FALSE)
 
 ## generate full table in HTML and store it into the 'doc' directory
-## twice, just as we did with the CSV file
+## twice, just as we did with the CSV file. note that because the
+## table caption is not translated from Markdown, but directly copied
+## into HTML, we need to avoid using the '<' symbol, as in FDR < 10%,
+## and put its HTML code instead (&lt;)
 ktab <- kable(DEgenesTab, "html", escape=FALSE, row.names=TRUE,
-              caption=sprintf("Differentially expressed genes. Differentially expressed genes between SARS-Cov-2 infected and mock NHBE cells with FDR < 10%% (CSV <a href=\"%s\" download>file</a>).",
+              caption=sprintf("Differentially expressed genes. Differentially expressed genes between SARS-Cov-2 infected and mock NHBE cells with FDR &lt; 10%% (CSV <a href=\"%s\" download>file</a>).",
                               fnameCSV))
 ktab <- kable_styling(ktab,
                       bootstrap_options=c("stripped", "hover", "responsive"),
@@ -613,13 +617,18 @@ The following code chunk is also hidden because its purpose is to produce
 a short HTML table of the top-10 DE genes. The reason show here only the
 top-10 genes is to producing a long vignette. The full HTML table and the
 corresponding CSV file are linked through the caption of this short HTML
-table.I
+table.
+
+note that because the table caption is not translated from Markdown, but
+directly copied into HTML, we need to avoid using the '<' symbol, as in
+FDR < 10%, and put its HTML code instead (&lt;)
 --->
 
 ```{r DEgenesSARScov2NHBE, echo=FALSE}
-kable(DEgenesTab[1:10, ], "html", escape=FALSE, row.names=TRUE, 
-      caption=sprintf("Differentially expressed genes. Top-10 differentially expressed genes with lowest p-value between SARS-Cov-2 infected and mock NHBE cells with FDR < 10%%. To see the full list of DE genes, follow this <a href=\"%s\" target=\"_blank\">link</a> or download this CSV <a href=\"%s\" download>file</a>.",
-                      fnameHTML, fnameCSV))
+ktab <- kable(DEgenesTab[1:10, ], "html", escape=FALSE, row.names=TRUE, 
+              caption=sprintf("Differentially expressed genes. Top-10 differentially expressed genes with lowest p-value between SARS-Cov-2 infected and mock NHBE cells with FDR &lt; 10%%. To see the full list of DE genes, follow this <a href=\"%s\" target=\"_blank\">link</a> or download this CSV <a href=\"%s\" download>file</a>.",
+                              fnameHTML, fnameCSV))
+kable_styling(ktab, position="center")
 ```
 
 # Functional analysis

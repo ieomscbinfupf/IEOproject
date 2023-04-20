@@ -47,8 +47,8 @@ jobs:
     steps:
       - id: findinfo
         run: |
-          ## Assume Bioconductor RELEASE 3.14
-          biocversion="RELEASE_3_14"
+          ## Assume Bioconductor RELEASE 3.16
+          biocversion="RELEASE_3_16"
           ## Define the image name and print the information
           imagename="bioconductor/bioconductor_docker:${biocversion}"
           echo $imagename
@@ -103,12 +103,14 @@ jobs:
           sudo add-apt-repository ppa:git-core/candidate -y
           ## Update
           sudo apt-get update -y
+          ## apt-file is necessary for rspm
+          sudo apt-get -y install apt-file
           ## Upgrade git and other tools
           sudo apt-get upgrade -y
           ## latest git version
           git --version
         shell: bash {0}
-      
+
       - name: Set locale to en_US.UTF-8
         run: |
           sudo locale-gen en_US.UTF-8
@@ -118,14 +120,33 @@ jobs:
       ## Most of these steps are the same as the ones in
       ## https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml
       ## If they update their steps, we will also need to update ours.
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
+      - name: Set up RStudio Package Manager for R binary packages
+        run: |
+          install.packages('rspm')
+        shell: Rscript {0}
+
+      - name: Install development packages
+        run: |
+          rspm::enable()
+          message(paste('****', Sys.time(), 'installing development packages ****'))
+          install.packages(c('remotes', 'rprojroot', 'renv', 'desc', 'rmarkdown', 'knitr', 'BiocManager'))
+
+      - name: Install package dependencies
+        run: |
+          pkg_deps <- sort(unique(renv::dependencies()$Package))
+          pkg_deps <- pkg_deps[pkg_deps != "IEOproject"]
+          desc_pkgs <- desc::desc_get_deps()$package
+          desc_pkgs <- desc_pkgs[desc_pkgs != "R"] 
+          if (any(!pkg_deps %in% desc_pkgs)) stop(sprintf("\n\n***PACKAGE(S) %s NOT INCLUDED IN DESCRIPTION FILE***\n\n", paste(pkg_deps[!pkg_deps %in% desc_pkgs], collapse=", ")))
+          missing_pkgs <- setdiff(pkg_deps, rownames(installed.packages())
+          if (length(missing_pkgs) > 0) { rspm::enable() ; res <- tryCatch({ BiocManager::install(missing_pkgs) ; TRUE }, error=function(cond) { message(cond) ; return(FALSE) }, warning=function(cond) { message(cond) ; return(FALSE) }) ; if (!res) { stop("\n\n***PROBLEMS INSTALLING PACKAGE DEPENDENCIES*** YOU ARE TRYING\nTO LOAD A PACKAGE THAT DOES NOT EXIST. SEE MESSAGES ABOVE.") } }
+        shell: Rscript {0}
+      
       - name: Query dependencies
         run: |
-          install.packages('remotes')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          message(paste('****', Sys.time(), 'installing BiocManager ****'))
-          remotes::install_cran("BiocManager")
         shell: Rscript {0}
 
       ## Find the corresponding R version based on the Bioconductor version

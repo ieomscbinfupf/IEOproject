@@ -1,7 +1,7 @@
 Package: IEOproject
 Type: Package
 Title: IEO Project Template
-Version: 1.2.1
+Version: 1.2.3
 Author: Robert Castelo
 Maintainer: Robert Castelo <robert.castelo@upf.edu>
 Description: Provide the IEO project template.
@@ -11,5 +11,4 @@ Imports: methods, S4Vectors
 Suggests: BiocStyle, knitr, rmarkdown, usethis, kableExtra,
           edgeR, geneplotter, sva, KernSmooth
 VignetteBuilder: knitr
-LazyData: true
 RoxygenNote: 7.1.0
