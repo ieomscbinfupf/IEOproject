@@ -132,6 +132,7 @@ jobs:
           rspm::enable()
           message(paste('****', Sys.time(), 'installing development packages ****'))
           install.packages(c('remotes', 'rprojroot', 'renv', 'desc', 'rmarkdown', 'knitr', 'BiocManager'))
+        shell: Rscript {0}
 
       - name: Install package dependencies
         run: |
