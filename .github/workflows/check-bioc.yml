@@ -139,7 +139,6 @@ jobs:
           pkg_deps <- sort(unique(renv::dependencies()$Package))
           pkg_deps <- pkg_deps[pkg_deps != "IEOproject"]
           desc_pkgs <- desc::desc_get_deps()$package
-          desc_pkgs <- desc_pkgs[desc_pkgs != "R"] 
           if (any(!pkg_deps %in% desc_pkgs)) stop(sprintf("\n\n***PACKAGE(S) %s NOT INCLUDED IN DESCRIPTION FILE***\n\n", paste(pkg_deps[!pkg_deps %in% desc_pkgs], collapse=", ")))
           missing_pkgs <- setdiff(pkg_deps, rownames(installed.packages())
           if (length(missing_pkgs) > 0) { rspm::enable() ; res <- tryCatch({ BiocManager::install(missing_pkgs) ; TRUE }, error=function(cond) { message(cond) ; return(FALSE) }, warning=function(cond) { message(cond) ; return(FALSE) }) ; if (!res) { stop("\n\n***PROBLEMS INSTALLING PACKAGE DEPENDENCIES*** YOU ARE TRYING\nTO LOAD A PACKAGE THAT DOES NOT EXIST. SEE MESSAGES ABOVE.") } }
