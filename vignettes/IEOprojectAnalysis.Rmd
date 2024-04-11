@@ -32,8 +32,8 @@ options can be found at http://yihui.name/knitr/options
 ```{r setup, echo=FALSE, cache=FALSE}
 library(knitr) ## kable()
 library(kableExtra) ## kable_styling(), save_kable()
-library(here)
-library(usethis) ## proj_get(), use_directory(), proj_path()
+library(here) ## here()
+library(usethis) ## use_directory()
 
 knitr::opts_chunk$set(
   collapse=TRUE,
@@ -43,12 +43,14 @@ knitr::opts_chunk$set(
   cache=FALSE
 )
 
-## this option avoid use_directory() being verbose later on
-## options(usethis.quiet=TRUE)
+## this option avoid use_directory() being verbose
+options(usethis.quiet=TRUE)
 
-## proj_get()
+## create these paths at build time if they do not exist
 use_directory(file.path("doc"))
 use_directory(file.path("inst", "doc"))
+
+## fetch the package root directory
 path2pkg <- here()
 ```
 
@@ -593,13 +595,9 @@ top-10 DE genes.
 ## twice, once in 'doc' to enable quickly look up during vignette editing
 ## and building with 'devtools::build_vignettes()' and a second time in
 ## 'inst/doc' to make these files available at install.
-## use_directory(file.path("doc"))
-## use_directory(file.path("inst", "doc"))
 fnameCSV <- "DEgenesSARScov2NHBE.csv"
-## fpathCSV <- proj_path(file.path("doc", fnameCSV))
 fpathCSV <- file.path(path2pkg, "doc", fnameCSV)
 write.csv(DEgenesTab, fpathCSV, row.names=FALSE)
-## fpathCSV <- proj_path(file.path("inst", "doc", fnameCSV))
 fpathCSV <- file.path(path2pkg, "inst", "doc", fnameCSV)
 write.csv(DEgenesTab, fpathCSV, row.names=FALSE)
 
@@ -615,10 +613,8 @@ ktab <- kable_styling(ktab,
                       bootstrap_options=c("stripped", "hover", "responsive"),
                       fixed_thead=TRUE)
 fnameHTML <- "DEgenesSARScov2NHBE.html"
-## fpathHTML <- proj_path(file.path("doc", fnameHTML))
 fpathHTML <- file.path(path2pkg, "doc", fnameHTML)
 save_kable(ktab, file=fpathHTML, self_contained=TRUE)
-## fpathHTML <- proj_path(file.path("inst", "doc", fnameHTML))
 fpathHTML <- file.path(path2pkg, "inst", "doc", fnameHTML)
 save_kable(ktab, file=fpathHTML, self_contained=TRUE)
 ```
