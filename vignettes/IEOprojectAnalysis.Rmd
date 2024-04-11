@@ -33,7 +33,7 @@ options can be found at http://yihui.name/knitr/options
 library(knitr) ## kable()
 library(kableExtra) ## kable_styling(), save_kable()
 library(here)
-## library(usethis) ## proj_get(), use_directory(), proj_path()
+library(usethis) ## proj_get(), use_directory(), proj_path()
 
 knitr::opts_chunk$set(
   collapse=TRUE,
@@ -47,8 +47,8 @@ knitr::opts_chunk$set(
 ## options(usethis.quiet=TRUE)
 
 ## proj_get()
-## use_directory(file.path("doc"))
-## use_directory(file.path("inst", "doc"))
+use_directory(file.path("doc"))
+use_directory(file.path("inst", "doc"))
 path2pkg <- here()
 ```
 
@@ -615,9 +615,11 @@ ktab <- kable_styling(ktab,
                       bootstrap_options=c("stripped", "hover", "responsive"),
                       fixed_thead=TRUE)
 fnameHTML <- "DEgenesSARScov2NHBE.html"
-fpathHTML <- proj_path(file.path("doc", fnameHTML))
+## fpathHTML <- proj_path(file.path("doc", fnameHTML))
+fpathHTML <- file.path(path2pkg, "doc", fnameHTML)
 save_kable(ktab, file=fpathHTML, self_contained=TRUE)
-fpathHTML <- proj_path(file.path("inst", "doc", fnameHTML))
+## fpathHTML <- proj_path(file.path("inst", "doc", fnameHTML))
+fpathHTML <- file.path(path2pkg, "inst", "doc", fnameHTML)
 save_kable(ktab, file=fpathHTML, self_contained=TRUE)
 ```
 
