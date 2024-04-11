@@ -9,7 +9,7 @@ License: Artistic-2.0
 Encoding: UTF-8
 Depends: R (>= 4.0.0), SummarizedExperiment
 Imports: methods, S4Vectors
-Suggests: BiocStyle, knitr, rmarkdown, here, kableExtra,
+Suggests: BiocStyle, knitr, rmarkdown, usethis, here, kableExtra,
           edgeR, geneplotter, sva, KernSmooth
 VignetteBuilder: knitr
 RoxygenNote: 7.3.1
