@@ -10,7 +10,10 @@
 #'   Imbalanced Host Response to SARS-CoV-2 Drives Development of COVID-19.
 #'   \emph{Cell}, 181:1036-1045, 2020.
 #'   doi: \url{https://doi.org/10.1016/j.cell.2020.04.026}
+#' @name IEOproject-package
+#' @aliases IEOproject-package
+#' @aliases IEOproject
+#' @keywords package
+"_PACKAGE"
 
-#' @docType package
-#' @name IEOproject
 NULL

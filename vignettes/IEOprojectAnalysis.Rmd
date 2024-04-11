@@ -32,7 +32,8 @@ options can be found at http://yihui.name/knitr/options
 ```{r setup, echo=FALSE, cache=FALSE}
 library(knitr) ## kable()
 library(kableExtra) ## kable_styling(), save_kable()
-library(usethis) ## proj_get(), use_directory(), proj_path()
+library(here)
+## library(usethis) ## proj_get(), use_directory(), proj_path()
 
 knitr::opts_chunk$set(
   collapse=TRUE,
@@ -43,11 +44,12 @@ knitr::opts_chunk$set(
 )
 
 ## this option avoid use_directory() being verbose later on
-options(usethis.quiet=TRUE)
+## options(usethis.quiet=TRUE)
 
-proj_get()
-use_directory(file.path("doc"))
-use_directory(file.path("inst", "doc"))
+## proj_get()
+## use_directory(file.path("doc"))
+## use_directory(file.path("inst", "doc"))
+path2pkg <- here()
 ```
 
 # Introduction
@@ -594,9 +596,11 @@ top-10 DE genes.
 ## use_directory(file.path("doc"))
 ## use_directory(file.path("inst", "doc"))
 fnameCSV <- "DEgenesSARScov2NHBE.csv"
-fpathCSV <- proj_path(file.path("doc", fnameCSV))
+## fpathCSV <- proj_path(file.path("doc", fnameCSV))
+fpathCSV <- file.path(path2pkg, "doc", fnameCSV)
 write.csv(DEgenesTab, fpathCSV, row.names=FALSE)
-fpathCSV <- proj_path(file.path("inst", "doc", fnameCSV))
+## fpathCSV <- proj_path(file.path("inst", "doc", fnameCSV))
+fpathCSV <- file.path(path2pkg, "inst", "doc", fnameCSV)
 write.csv(DEgenesTab, fpathCSV, row.names=FALSE)
 
 ## generate full table in HTML and store it into the 'doc' directory
