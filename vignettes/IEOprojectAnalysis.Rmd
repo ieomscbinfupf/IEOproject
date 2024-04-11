@@ -32,7 +32,7 @@ options can be found at http://yihui.name/knitr/options
 ```{r setup, echo=FALSE, cache=FALSE}
 library(knitr) ## kable()
 library(kableExtra) ## kable_styling(), save_kable()
-library(usethis) ## use_directory(), proj_path()
+library(usethis) ## proj_get(), use_directory(), proj_path()
 
 knitr::opts_chunk$set(
   collapse=TRUE,
@@ -44,6 +44,10 @@ knitr::opts_chunk$set(
 
 ## this option avoid use_directory() being verbose later on
 options(usethis.quiet=TRUE)
+
+proj_get()
+use_directory(file.path("doc"))
+use_directory(file.path("inst", "doc"))
 ```
 
 # Introduction
@@ -587,8 +591,8 @@ top-10 DE genes.
 ## twice, once in 'doc' to enable quickly look up during vignette editing
 ## and building with 'devtools::build_vignettes()' and a second time in
 ## 'inst/doc' to make these files available at install.
-use_directory(file.path("doc"))
-use_directory(file.path("inst", "doc"))
+## use_directory(file.path("doc"))
+## use_directory(file.path("inst", "doc"))
 fnameCSV <- "DEgenesSARScov2NHBE.csv"
 fpathCSV <- proj_path(file.path("doc", fnameCSV))
 write.csv(DEgenesTab, fpathCSV, row.names=FALSE)
