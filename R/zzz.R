@@ -1,6 +1,5 @@
 ## function called when the package is attached, that is
 ## interactively loaded with library(pkg)
-setwd("/home/rcastelo")
 .onAttach <- function(libname, pkgname) {
   packageStartupMessage("This is the package of the IEO project template.\n",
                         "Type vignette(\"IEOprojectAnalysis\") to\n",
