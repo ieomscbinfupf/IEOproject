@@ -1,4 +1,4 @@
-[![R-CMD-check-bioc](../../actions/workflows/check-bioc.yml/badge.svg)](../../actions?query=workflow%3AR-CMD-check-bioc)
+[![R-CMD-check-ieo](../../actions/workflows/check-ieo.yml/badge.svg)](../../actions?query=workflow%3AR-CMD-check-IEO)
 
 
 # IEO Project Template
