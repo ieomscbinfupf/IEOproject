@@ -29,7 +29,7 @@ a single code block (collapse=TRUE), align figures to the center
 options can be found at http://yihui.name/knitr/options
 --->
 
-```{r setup, echo=FALSE, cache=FALSE}
+```{r setup, message=FALSE, echo=FALSE, cache=FALSE}
 library(knitr) ## kable()
 library(kableExtra) ## kable_styling(), save_kable()
 library(here) ## here()
@@ -431,10 +431,10 @@ for (i in 1:ncol(se.filt)) {
 A number of samples display some expression-level dependent bias.
 For cases in which this occurs at the low-end of the expression level,
 one solution could be to have a more stringent filter on minimum
-expression (using a grouping with more samples per group, for instance).
-We should keep an eye on samples with these biases in case they also
-display other unexpected features, because then we might consider
-removing them.
+expression (see the help page of the `filterByExpr()` function in
+the `r Biocpkg("edgeR")` package). We should keep an eye on samples
+with these biases in case they also display other unexpected features,
+because then we might consider removing them.
 
 ## Experimental design and batch identification
 
@@ -649,6 +649,17 @@ Here we discuss the findings.
 # Conclusions
 
 Here we summarize our conclusions.
+
+# AI assistance
+
+Here we either write that we did not use any AI tool to help with the analysis
+or, in case we have used it, we need to include here the following information:
+
+* Which AI tool(s) did we use.
+* What specific prompts we used.
+* The output obtained from those prompts.
+* Whether we directly accepted the output of those prompts, or we had to
+  modify them and why.
 
 # Session information
 
