@@ -39,6 +39,7 @@ options can be found at http://yihui.name/knitr/options
 --->
 
 ```{r setup, message=FALSE, echo=FALSE, cache=FALSE}
+setwd("/home/rcastelo")
 library(knitr) ## kable()
 library(kableExtra) ## kable_styling(), save_kable()
 library(here) ## here()

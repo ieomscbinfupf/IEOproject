@@ -20,7 +20,7 @@ on:
     branches:
       - main
 
-name: R-CMD-check-bioc
+name: R-CMD-check-IEO
 
 ## These environment variables control whether to run GHA code later on that is
 ## specific to testthat, covr, and pkgdown.
@@ -47,8 +47,8 @@ jobs:
     steps:
       - id: findinfo
         run: |
-          ## Assume Bioconductor RELEASE 3.20
-          biocversion="RELEASE_3_20"
+          ## Assume Bioconductor RELEASE 3.22
+          biocversion="RELEASE_3_22"
           ## Define the image name and print the information
           imagename="bioconductor/bioconductor_docker:${biocversion}"
           echo $imagename
@@ -58,7 +58,7 @@ jobs:
           echo "imagename=${imagename}" >> $GITHUB_OUTPUT
           echo "biocversion=${biocversion}" >> $GITHUB_OUTPUT
 
-  R-CMD-check-bioc:
+  R-CMD-check-IEO:
     ## This job then checks the R package using the Bioconductor docker that
     ## was defined by the previous job. This job will determine what version of
     ## R to use for the macOS and Windows builds on the next job.
@@ -121,7 +121,7 @@ jobs:
       ## Most of these steps are the same as the ones in
       ## https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml
       ## If they update their steps, we will also need to update ours.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Set up RStudio Package Manager for R binary packages
         run: |
@@ -132,7 +132,7 @@ jobs:
         run: |
           rspm::enable()
           message(paste('****', Sys.time(), 'installing development packages ****'))
-          install.packages(c('remotes', 'rprojroot', 'renv', 'desc', 'rmarkdown', 'knitr', 'BiocManager'))
+          install.packages(c('remotes', 'rprojroot', 'renv', 'desc', 'rmarkdown', 'knitr', 'usethis', 'here', 'kableExtra', 'BiocManager'))
         shell: Rscript {0}
 
       - name: Install package dependencies
@@ -171,12 +171,11 @@ jobs:
           ## Save the info for the next job
           echo "rversion=${rversion}" >> $GITHUB_OUTPUT
           echo "biocversionnum=${biocversionnum}" >> $GITHUB_OUTPUT
-        shell:
-          bash {0}
+        shell: bash {0}
 
       - name: Cache R packages
         if: "!contains(github.event.head_commit.message, '/nocache')"
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /home/runner/work/_temp/Library
           key: ${{ env.cache-version }}-${{ runner.os }}-biocdocker-biocbranch-${{ needs.define-docker-info.outputs.biocversion }}-r-${{ steps.findrversion.outputs.rversion }}-bioc-${{ steps.findrversion.outputs.biocversionnum }}-${{ hashFiles('.github/depends.Rds') }}
@@ -215,7 +214,20 @@ jobs:
           sessioninfo::session_info(pkgs, include_base=TRUE)
         shell: Rscript {0}
 
-      - name: Check
+      - name: Check for setwd() in R and Rmd files
+        run: |
+          RED='\033[0;31m'
+          NC='\033[0m'
+          nlswd=`find . -iname \*.R -o -iname \*.Rmd | xargs grep -n setwd | cut -d ':' -f 1`
+          if [ "$nlswd" != "" ] ; then
+            echo -e "${RED}YOU ARE CALLING setwd() IN AN .R OR .Rmd FILE, PLEASE DO NOT DO IT${NC}"
+            exit 1
+          else
+            exit 0
+          fi
+        shell: bash {0}
+
+      - name: Check package
         env:
           _R_CHECK_CRAN_INCOMING_: false
         run: |
