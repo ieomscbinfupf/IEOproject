@@ -1,10 +1,19 @@
 ---
 title: "IEO Project template"
+subtitle: "IEO 2026, MSc Bioinformatics, UPF"
 author:
 - name: "Robert Castelo"
   affiliation: Universitat Pompeu Fabra
   email: robert.castelo@upf.edu
 date: "`r Sys.Date()`"
+abstract: >
+  Here we investigate gene expression changes in two human cell lines,
+  between cells cultured with and without infection by three different
+  respiratory viruses, namely SARS-CoV-2, seasonal influenza A virus,
+  and the human respiratory syncytial virus. We find that library
+  preparation protocols differed among cell lines, precluding comparing
+  them, but found differentially expressed genes due to infection
+  within each cell line.
 output:
   BiocStyle::html_document:
     toc: true
