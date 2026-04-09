@@ -13,3 +13,4 @@ Suggests: BiocStyle, knitr, rmarkdown, usethis, here, kableExtra,
           edgeR, geneplotter, sva, KernSmooth
 VignetteBuilder: knitr
 RoxygenNote: 7.3.2
+URL: https://ieomscbinfupf.github.io/IEOproject/
